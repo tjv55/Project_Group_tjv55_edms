@@ -15,24 +15,33 @@ const pool = new Pool({
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(session({
-  secret: 'yourSecret',
+  secret: 'potatos',
   resave: false,
   saveUninitialized: false
 }));
-
-// Signup Route
+//--------------
+//Signup Route
+//--------------
 app.post('/signup', async (req, res) => {
   const { email, password, role } = req.body;
+  if (!['admin', 'employee'].includes(role)) {
+    return res.status(400).json({ message: 'Invalid role' });
+  }
   try {
     const hashed = await bcrypt.hash(password, 10);
-    await pool.query('INSERT INTO users (email, password, role) VALUES ($1, $2, $3)', [email, hashed, role]);
+    await pool.query(
+      'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)',
+      [email, hashed, role]
+    );
     res.status(201).json({ message: 'User created' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
+//--------------
 // Signin Route
+//--------------
 app.post('/signin', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -44,7 +53,14 @@ app.post('/signin', async (req, res) => {
     if (!match) return res.status(401).json({ message: 'Invalid password' });
 
     req.session.user = { id: user.id, role: user.role };
-    res.json({ message: 'Logged in', role: user.role });
+    res.json({ 
+        message: 'Logged in',
+        user:{
+            id: user.id,
+            email: user.email,
+            role: user.role
+            }
+        });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
