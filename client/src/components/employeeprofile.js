@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const EmployeeProfile = () => {
-  const [profile, setProfile] = useState({ first_name: '', last_name: '', email: '', position: '' });
+  const [profile, setProfile] = useState({ first_name: '', last_name: '', email: '' });
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -28,16 +28,16 @@ const EmployeeProfile = () => {
       {message && <div className="alert alert-info">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label>Name</label>
-          <input type="text" name="name" className="form-control" value={profile.name} onChange={handleChange} />
+          <label>First Name</label>
+          <input type="text" name="first_name" className="form-control" value={profile.first_name} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label>Last Name</label>
+          <input type="text" name="last_name" className="form-control" value={profile.last_name} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label>Email</label>
-          <input type="email" name="email" className="form-control" value={profile.email} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label>Position</label>
-          <input type="text" name="position" className="form-control" value={profile.position} onChange={handleChange} />
+          <input type="email" name="email" className="form-control" value={profile.email} readOnly disabled />
         </div>
         <button type="submit" className="btn btn-primary">Update</button>
       </form>

@@ -25,7 +25,7 @@ export default function EditEmployeeForm({ employee, onDone }) {
     <div>
       <h3>Edit Employee</h3>
       <form onSubmit={handleSubmit} className="mb-3">
-        {['first_name','last_name', 'position', 'email'].map((field) => (
+        {['first_name','last_name', 'position', 'id','email','role'].map((field) => (
           <div className="form-group" key={field}>
             <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
             <input
