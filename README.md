@@ -84,7 +84,7 @@ A full-stack web application that allows administrators to manage employee recor
 # ================== #
 
 # 1. Clone the repo #
-git clone https://github.com/your-username/Project_Group_tjv55_edms.git
+git clone https://github.com/tjv55/Project_Group_tjv55_edms.git
 cd Project_Group_tjv55_edms/server
 
 # 2. Install dependencies #
